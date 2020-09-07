@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/games', 'GameController@index');
+Route::get('/games/{id}', 'GameController@show');
+Route::get('/games/{id}/matches', 'GameController@matches');
+
+Route::get('/matches', 'MatchController@index');
+Route::get('/matches/{id}', 'MatchController@show');
