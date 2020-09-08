@@ -1,0 +1,19 @@
+/*! `Custom` Bootstrap 4 theme */
+$font-family-base:Raleway;
+$headings-font-family:Raleway;
+
+$primary:#2f3c48;
+$secondary:#6f7f8c;
+$success:#43dba8;
+$danger:#cc330d;
+$info:#1985A1;
+$warning:#FB8B24;
+$light:#F7FFF7;
+$dark:#191d28;
+$enable-gradients:false;
+$spacer:1.2rem;
+$border-width:1px;
+$border-radius:.2rem;
+$btn-border-radius:.15rem;
+
+@import '~bootstrap/scss/bootstrap.scss';

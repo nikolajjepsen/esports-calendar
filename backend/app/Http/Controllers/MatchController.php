@@ -23,9 +23,9 @@ class MatchController extends Controller
      */
     public function index(int $gameId = NULL) {
         if ($gameId) {
-            $matches = Match::where('game_id', $gameId)->get();
+            $matches = \Match::where('game_id', $gameId)->get();
         } else {
-            $matches = Match::all();
+            $matches = \Match::all();
         }
         
         return response()->json($matches);

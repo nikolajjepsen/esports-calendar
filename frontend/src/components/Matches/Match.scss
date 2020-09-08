@@ -1,5 +1,66 @@
 .match-container {
     margin-bottom: 0.2rem;
     background-color: #1C202B;
-    padding: 20px 0;
+    padding: 13px 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #F7FFF7;
+    .tournament-details {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .game {
+            margin-right: 12px;
+
+            img {
+                width: 28px;
+            }
+        }
+        .tournament {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    .match-details {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        align-items: center;
+
+        .team-wrapper {
+            width: 40%;
+            padding: 12px 12px;
+            background-color: #272b35;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            &:first-child {
+                justify-content: flex-end;
+            }
+        }
+        
+
+        .middle-section .middle-content {
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 1.5px;
+        }
+    }
+
+    .schedule-details {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+
+        .starts_in {
+            font-size: 14px;
+        }
+
+        .starts_at {
+            font-size: 12px;
+        }
+    }
 }

@@ -6,27 +6,29 @@ import {
     Link 
 } from 'react-router-dom';
 
-import Home from './pages/Home';
 import Games from './pages/Games';
-import Matches from './components/Matches/Matches';
+import Matches from './pages/Matches';
 import NotFound from './pages/NotFound';
+import Login from './pages/Login';
 
 import './App.scss';
 
+import { AuthenticationProvider } from "./context/AuthenticationIndex";
+
 const App = () => {
     return (
-        <>
+        <AuthenticationProvider>
             <Router>
                 <Switch>
-                    <Route path="/" exact component={Home} />
+                    <Route path="/" exact component={Matches} />
                     <Route path="/games" component={Games} />
-                    <Route path="/matches" component={Matches} />
+                    <Route path="/login" component={Login} />
                     <Route path="*">
                         <NotFound />
                     </Route>
                 </Switch>
             </Router>
-        </>
+        </AuthenticationProvider>
     );
 }
 

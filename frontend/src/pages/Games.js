@@ -1,18 +1,15 @@
 import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 import Header from './../components/Header';
+import ListGames from './../components/Games/List.js';
 
 const Games = () => {
     return (
         <>
             <Header />
             <Container>
-                <Row>
-                    <Col>
-                        <p>Games</p>
-                    </Col>
-                </Row>
+                <ListGames />
             </Container>
         </>
     )

@@ -1,0 +1,13 @@
+#login {
+    .container {
+        margin-top: 100px;
+    }
+    .login-inner {
+        padding: 20px 30px;
+        background-color: #1C202B;
+
+        .btn.btn-outline-success:hover {
+            color: #fff;
+        }
+    }
+}

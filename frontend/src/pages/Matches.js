@@ -1,21 +1,20 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 
+import ListMatches from './../components/Matches/List.js';
 import Header from './../components/Header';
 
-const Home = () => {
+const Matches = () => {
     return (
-        <main id="home">
+        <>
             <Header />
             <Container>
                 <Row>
-                    <Col>
-                        <p>Home</p>
-                    </Col>
+                    <ListMatches />
                 </Row>
             </Container>
-        </main>
+        </>
     )
 }
 
-export default Home;
+export default Matches;

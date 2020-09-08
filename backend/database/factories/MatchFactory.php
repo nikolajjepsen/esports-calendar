@@ -21,6 +21,6 @@ $factory->define(Match::class, function (Faker $faker) {
         'game_id' => factory(App\Game::class),
         'team_one_id' => factory(App\Team::class),
         'team_two_id' => factory(App\Team::class),
-        'starts_at' => $faker->datetime,
+        'starts_at' => $faker->dateTimeBetween($startDate = '+2 days', $endDate = '+2 week'),
     ];
 });

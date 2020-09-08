@@ -1,13 +1,14 @@
 header {
-    width: 100%;
-    background-color: #121521;
+    width: 100vw;
+    background-color: #191d28;
     border-bottom: 0.1rem solid #272935;
     padding: 0.7rem 2rem 0.7rem 2rem;
+    overflow: auto;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+    margin-bottom: 20px;
 
     section {
         display: flex;
@@ -22,7 +23,7 @@ header {
         display: flex;
         flex-direction: row;
         a.brand {
-            color: #fff;
+            color: #F7FFF7;
             text-decoration: none;
             font-weight: 700;
             font-size: 1.4rem;
@@ -39,14 +40,16 @@ header {
                 padding-left: 0.8rem;
                 font-weight: 600;
                 font-size: 0.9rem;
-
+                .btn.btn-outline-success:hover {
+                    color: #fff;
+                }
                 a {
-                    color: rgba(255, 255, 255, 0.5);
+                    color: #cdd1cd;
                     transition: ease 250ms color;
 
                     &:hover {
                         text-decoration: none;
-                        color: rgba(255, 255, 255, 0.9);
+                        color: #F7FFF7;
                     }
                 }
             }
