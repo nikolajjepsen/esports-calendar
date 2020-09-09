@@ -18,13 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum')->get('/user', 'UserController@current');
-
-//Route::middleware('auth:sanctum')->get('/matches', 'Auth\LoginController@index');
-
 Route::get('/games', 'GameController@index');
-Route::get('/games/{id}', 'GameController@show');
-Route::get('/games/{id}/matches', 'GameController@matches');
 
-//Route::get('/matches', 'MatchController@index');
-Route::get('/matches/{id}', 'MatchController@show');
+// Authenticated in SubscribedGameController@__construct 
+Route::delete('/games/{id}/subscription', 'SubscribedGameController@destroy');
+Route::post('/games/subscription', 'SubscribedGameController@store');

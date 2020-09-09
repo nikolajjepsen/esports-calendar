@@ -1,60 +1,69 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 
-import Game from './Game';
+import apiClient from './../../services/api';
 
+import Game from './Game';
 const ListGames = () => {
     const [games, setGames] = useState([]);
 
-    useEffect( () => {
-        const games = [
-            {
-                'id': 1,
-                'name': 'Counter-Strike: Global Offensive',
-                'description': `
-                    Rerum architecto explicabo ut et. Sint doloremque dolor reprehenderit cupiditate debitis ipsam. 
-                    Quo in aut suscipit est occaecati tempora esse. Qui quaerat temporibus laboriosam dolorem assumenda ea. 
-                    Eos laboriosam dolorem at quisquam unde. Est iste voluptatem non.
-                `,
-                'developer': 'Valve Inc.',
-                'logo_path': 'https://esportsjunkie.com/wp-content/uploads/2019/05/CSGO-Banner-24-3-2019.jpg',
-                'subscribed': true,
-            },
-            {
-                'id': 2,
-                'name': 'League of Legends',
-                'description': `
-                    Rerum architecto explicabo ut et. Sint doloremque dolor reprehenderit cupiditate debitis ipsam. 
-                    Quo in aut suscipit est occaecati tempora esse. Qui quaerat temporibus laboriosam dolorem assumenda ea. 
-                    Eos laboriosam dolorem at quisquam unde. Est iste voluptatem non.
-                `,
-                'developer': 'Riot Games Inc.',
-                'logo_path': 'https://nexus.leagueoflegends.com/wp-content/uploads/2019/06/Banner_T2_Image_tnp3w61gzna8r2n3rojp.jpg',
-                subscribed: false
-            },
-        ];
+    useEffect(() => {
+        const getGames = async() => {
+            const games = await apiClient.get("api/games");
+            setGames(games.data);
+        }
+        getGames();
+    }, []);
 
-        setGames(games);
-    }, [])
+    const toggleFollowStatus = async (id) => {
+        let isSubscribed;
+        let newGameState = games.map(game => {
+            const temp = Object.assign({}, game);
+            if (temp.id === id) {
+                isSubscribed = temp.user_is_subscribed;
+                temp.user_is_subscribed = !temp.user_is_subscribed
+            }
+            return temp;
+        })
+        let response;
+        try {
+            response = isSubscribed
+                ? await apiClient.delete(`/api/games/${id}/subscription`)
+                : await apiClient.post(`/api/games/subscription`, 
+                    { game_id: id },
+                );
+
+            if (response) {
+                setGames(newGameState);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+        
+    }
 
     return (
         <Row>
-            {
-                games.map((game) => (
-                    <Col sm={4}>
-                        <Game 
-                            key={game.id}
-                            name={game.name}
-                            developer={game.developer}
-                            description={game.description}
-                            logo_path={game.logo_path}
-                            subscribed={game.subscribed}
-                        />
-                    </Col>
-                ))
-            }
+            {games.map((game) => (
+                <Col sm={4}>
+                    <Game
+                        key={game.id}
+                        id={game.id}
+                        name={game.name}
+                        developer={game.developer}
+                        description={game.description}
+                        logo_path={game.logo_path}
+                        subscribed={
+                            game.user_is_subscribed
+                                ? game.user_is_subscribed
+                                : false
+                        }
+                        toggleFollowStatus={toggleFollowStatus}
+                    />
+                </Col>
+            ))}
         </Row>
-    )
+    );
 }
 
 export default ListGames;

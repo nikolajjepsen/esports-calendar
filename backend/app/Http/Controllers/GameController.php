@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class GameController extends Controller
 {
@@ -23,6 +26,26 @@ class GameController extends Controller
      */
     public function index() {
         $games = \App\Game::all();
+        $user = Auth::user() ?? false;
+
+        // Grab the subscribed games for the current user if authenticated
+        if ($user) {
+            $subscribedGames = $user->subscribedGames()->get();
+        }
+
+        // Loop through the games and attach a subscription status property
+        // for the game if authenticated
+        foreach ($games as $game) {
+            if ($user) {
+                if ($subscribedGames->contains('game_id', $game->id)) {
+                    $game->user_is_subscribed = true;
+                } else {
+                    $game->user_is_subscribed = false;
+                }
+            }
+        }
+        
+        // encode the games array to json and send it.
         return response()->json($games);
     }
 
@@ -55,7 +78,7 @@ class GameController extends Controller
      */
     public function show(int $id) {
         try {
-            $game = \App\Game::where('id', $id)->firstOrFail();
+            $game = \App\Game::findOrFail($id);
             return response()->json($game);
         } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
@@ -73,17 +96,5 @@ class GameController extends Controller
     public function update() {
         // TODO: Validation
         // TODO: Guard
-    }
-
-    public function matches(int $id) {
-        try {
-            $game = \App\Game::where('id', $id)->firstOrFail();
-        } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json([
-                'message' => 'Game not found'
-            ], 404);
-        }
-        
-        return response()->json($game->matches);
     }
 }
