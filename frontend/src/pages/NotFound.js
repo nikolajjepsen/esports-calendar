@@ -4,17 +4,16 @@ import Header from './../components/Header.js';
 
 import './NotFound.scss';
 
-const NotFound = ( {location} ) => {
+const NotFound = () => {
     return (
         <main id="not-found">
-            <Header />
-            <div className="not-found-container">
-                <span class="error-code">404</span>
-                <span class="divider">|</span>
-                <span class="message">Not Found</span>
+            <div className="not-found-container content-wrapper">
+                <span className="error-code">404</span>
+                <span className="divider">|</span>
+                <span className="message">Not Found</span>
             </div>
         </main>
-    )
+    );
 }
 
 export default NotFound;

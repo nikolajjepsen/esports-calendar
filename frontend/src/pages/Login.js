@@ -17,24 +17,32 @@ import { LogIn as LogInIcon } from 'react-feather';
 import Header from "./../components/Header.js";
 import "./Login.scss";
 
-import { useAuthenticationDispatchContext, login } from "../context/AuthenticationIndex";
+import { 
+    useAuthenticationDispatchContext,
+    useAuthenticationStateContext, 
+    login 
+} from "../context/AuthenticationIndex";
 
 const Login = () => {
-    const dispatch = useAuthenticationDispatchContext();
+    const authenticationDispatch = useAuthenticationDispatchContext();
+    const authenticationState = useAuthenticationStateContext();
+    const { errorMessage, loading } = authenticationState;
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const history = useHistory();
     
-    const handleSignin = (e) => {
+    const handleSignin = async (e) => {
         e.preventDefault();
         
         const payload = { email, password }
 
         try {
-            login(dispatch, payload);
+            let response = await login(authenticationDispatch, payload);
+            if (!response) {
+                return;
+            }
             history.replace('/');
         } catch (error) {
-            // in case of unmatched action type.
             console.log(error);
         }
 
@@ -42,7 +50,6 @@ const Login = () => {
 
     return (
         <main id="login">
-            <Header />
             <Container>
                 <Row className="login-container">
                     <Col xs={12} sm="12" md={{ size: 6, offset: 3 }}>
@@ -52,6 +59,7 @@ const Login = () => {
                                     <Label>E-mail</Label>
                                     <Input
                                         type="email"
+                                        disabled={loading}
                                         placeholder="E-mail"
                                         onChange={(event) =>
                                             setEmail(event.target.value)
@@ -62,14 +70,23 @@ const Login = () => {
                                     <Label>Password</Label>
                                     <Input
                                         type="password"
+                                        disabled={loading}
                                         onChange={(event) =>
                                             setPassword(event.target.value)
                                         }
                                     ></Input>
                                 </FormGroup>
+                                {errorMessage !== null && (
+                                    <FormGroup className="pb-2">
+                                        <span className="alert alert-danger">
+                                            {errorMessage.message}
+                                        </span>
+                                    </FormGroup>
+                                )}
                                 <Button
                                     color="success"
                                     outline
+                                    disabled={loading}
                                     className="has-icon"
                                     type="submit"
                                 >

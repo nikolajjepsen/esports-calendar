@@ -6,12 +6,11 @@ import ListGames from './../components/Games/List.js';
 
 const Games = () => {
     return (
-        <>
-            <Header />
+        <main>
             <Container>
                 <ListGames />
             </Container>
-        </>
+        </main>
     )
 }
 

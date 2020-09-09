@@ -28,10 +28,8 @@ class GameController extends Controller
         $games = \App\Game::all();
         $user = Auth::user() ?? false;
 
-        // Grab the subscribed games for the current user if authenticated
-        if ($user) {
-            $subscribedGames = $user->subscribedGames()->get();
-        }
+        // Grab the subscribed games for the current user
+        $subscribedGames = $this->getSubscribedGames();
 
         // Loop through the games and attach a subscription status property
         // for the game if authenticated
@@ -96,5 +94,12 @@ class GameController extends Controller
     public function update() {
         // TODO: Validation
         // TODO: Guard
+    }
+
+    public function getSubscribedGames() {
+        if ($user = Auth::user())
+            return $user->subscribedGames()->get();
+        
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardImg, CardTitle, CardBody, CardFooter, CardSubtitle, CardText, Button } from 'reactstrap';
+
 import { useAuthenticationStateContext } from "./../../context/AuthenticationIndex";
 
 import { Heart } from 'react-feather';
@@ -7,7 +8,7 @@ import { Heart } from 'react-feather';
 import './Game.scss';
 
 const Game = (props) => {
-    const { id, name, developer, description, logo_path, subscribed } = props;
+    const { id, name, developer, description, logo_path, subscribed, loaded } = props;
     const { user } = useAuthenticationStateContext();
 
     const handleFollowStatus = () => {
@@ -19,7 +20,12 @@ const Game = (props) => {
 
     return (
         <Card className="game-card">
-            <CardImg top width="100%" src={logo_path} alt={`${name} logo`} />
+            <CardImg
+                top
+                width="100%"
+                src={logo_path}
+                alt={`${name} logo`}
+            />
             <CardBody className="text-dark">
                 <CardTitle>{name}</CardTitle>
                 <CardSubtitle>{developer}</CardSubtitle>
@@ -27,7 +33,11 @@ const Game = (props) => {
             </CardBody>
             {user && (
                 <CardFooter>
-                    <Button className="has-icon" color="danger" onClick={handleFollowStatus}>
+                    <Button
+                        className="has-icon"
+                        color="danger"
+                        onClick={handleFollowStatus}
+                    >
                         {
                             <Heart
                                 size={18}
@@ -35,7 +45,9 @@ const Game = (props) => {
                                 color="white"
                             />
                         }
-                        <span>{subscribed ? "Following" : "Follow"}</span>
+                        <span>
+                            {subscribed ? "Following" : "Follow"}
+                        </span>
                     </Button>
                 </CardFooter>
             )}

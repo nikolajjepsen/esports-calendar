@@ -13,6 +13,10 @@ class Game extends Model
      */
     protected $guarded = [];
 
+    public function teams() {
+        return $this->hasMany('App\Team');
+    }
+
     public function matches() {
         return $this->hasMany('App\Match');
     }

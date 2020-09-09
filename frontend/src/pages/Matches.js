@@ -1,19 +1,17 @@
 import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 
 import ListMatches from './../components/Matches/List.js';
-import Header from './../components/Header';
 
 const Matches = () => {
     return (
-        <>
-            <Header />
-            <Container>
+        <main>
+            <Container class="content-wrapper">
                 <Row>
                     <ListMatches />
                 </Row>
             </Container>
-        </>
+        </main>
     )
 }
 

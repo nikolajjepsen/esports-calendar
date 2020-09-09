@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\GameController;
+use App\Match;
+use App\Game;
 
 class MatchController extends Controller
 {
@@ -23,12 +28,12 @@ class MatchController extends Controller
      */
     public function index(int $gameId = NULL) {
         if ($gameId) {
-            $matches = \Match::where('game_id', $gameId)->get();
+            $matches = Match::where('game_id', $gameId)->limit(3)->get();
         } else {
-            $matches = \Match::all();
+            $matches = Match::all()->limit(3);
         }
         
-        return response()->json($matches);
+        return response()->json($matches, 200);
     }
 
     /**
@@ -48,4 +53,31 @@ class MatchController extends Controller
         }
     }
 
+    public function getMatchesFromSubscribedGames() {
+
+        /**
+         * 1) Grab users' subscribed games
+         * 2) Pluck the Game IDs
+         * 3) Grab all matches where game_id = Selected Games ID.
+         * 4) Attach info regarding the teams using the hasOne relationships using with
+         * 5) Build the collection, and return the json encoded collection.
+         */
+
+        $subscribedGameIds = auth()
+            ->user()
+            ->subscribedGames
+            ->pluck('game_id');
+
+        $matches = Match::whereIn('game_id', $subscribedGameIds->toArray())
+            ->with(
+                [
+                    'game', 
+                    'teamOne', 
+                    'teamTwo'
+                ]
+            )
+            ->get();
+
+        return response()->json($matches, 200);
+    }
 }

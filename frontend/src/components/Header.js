@@ -15,7 +15,7 @@ import { useAuthenticationStateContext, useAuthenticationDispatchContext, logout
 const Header = () => {
     const dispatch = useAuthenticationDispatchContext();
     let { user } = useAuthenticationStateContext();
-    user = (user && user !== null) ? JSON.parse(user) : null;
+    user = (user && user !== null) ? user : null;
     const history = useHistory();
 
     const handleLogout = () => {

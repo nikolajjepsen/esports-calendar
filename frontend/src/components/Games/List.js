@@ -47,12 +47,12 @@ const ListGames = () => {
             {games.map((game) => (
                 <Col sm={4}>
                     <Game
-                        key={game.id}
                         id={game.id}
                         name={game.name}
                         developer={game.developer}
                         description={game.description}
                         logo_path={game.logo_path}
+                        loaded={games.length > 0 ? true : false}
                         subscribed={
                             game.user_is_subscribed
                                 ? game.user_is_subscribed

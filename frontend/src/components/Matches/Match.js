@@ -5,7 +5,7 @@ import moment from "moment";
 import './Match.scss';
 
 const Match = (props) => {
-    const { home, away, tournament, game, starts_at } = props.matchData;
+    const { home, away, tournament, starts_at } = props.matchData;
     const momentStartsAt = moment(starts_at);
 
     const [currentDateTime, setCurrentDateTime] = useState(new Date());

@@ -12,6 +12,13 @@ class SubscribedGamesSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\SubscribedGame::class, 4)->create();
+        \App\SubscribedGame::create([
+            'game_id' => 1,
+            'user_id' => 11
+        ]);
+        \App\SubscribedGame::create([
+            'game_id' => 2,
+            'user_id' => 11
+        ]);
     }
 }

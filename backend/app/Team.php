@@ -17,4 +17,8 @@ class Team extends Model
         return $this->hasMany('App\Match');
     }
 
+    public function game() {
+        return $this->belongsTo('App\Game');
+    }
+    
 }

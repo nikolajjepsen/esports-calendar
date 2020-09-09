@@ -18,7 +18,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Match::class, function (Faker $faker) {
     return [
-        'game_id' => factory(App\Game::class),
+        'game_id' => 1,
         'team_one_id' => factory(App\Team::class),
         'team_two_id' => factory(App\Team::class),
         'starts_at' => $faker->dateTimeBetween($startDate = '+2 days', $endDate = '+2 week'),
