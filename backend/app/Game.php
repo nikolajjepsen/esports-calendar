@@ -20,4 +20,8 @@ class Game extends Model
     public function matches() {
         return $this->hasMany('App\Match');
     }
+
+    public function tournaments() {
+        return $this->hasMany('App\Tournament');
+    }
 }

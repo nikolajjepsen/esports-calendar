@@ -15,7 +15,7 @@ class MatchCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection
+            'data' => $this->collection->sortByDate('starts_at', SORT_ASC)->toArray()
         ];
     }
 }
