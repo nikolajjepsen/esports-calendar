@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 
-import apiClient from './../../services/api';
+import apiService from './../../services/api';
 
 import Game from './Game';
 const ListGames = () => {
@@ -9,7 +9,7 @@ const ListGames = () => {
 
     useEffect(() => {
         const getGames = async() => {
-            const games = await apiClient.get("api/games");
+            const games = await apiService.get("api/games");
             setGames(games.data);
         }
         getGames();
@@ -28,8 +28,8 @@ const ListGames = () => {
         let response;
         try {
             response = isSubscribed
-                ? await apiClient.delete(`/api/games/${id}/subscription`)
-                : await apiClient.post(`/api/games/subscription`, 
+                ? await apiService.delete(`/api/games/${id}/subscription`)
+                : await apiService.post(`/api/games/subscription`, 
                     { game_id: id },
                 );
 

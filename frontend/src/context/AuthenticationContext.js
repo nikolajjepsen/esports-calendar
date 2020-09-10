@@ -20,7 +20,7 @@ export const useAuthenticationDispatchContext = () => {
     const context = useContext(AuthenticationDispatchContext);
 
     if (context === undefined) {
-        throw new Error("Out of scope: useAuthenticationDispatchContent must be supplied");
+        throw new Error("Out of scope: useAuthenticationDispatchContext must be supplied");
     }
 
     return context;

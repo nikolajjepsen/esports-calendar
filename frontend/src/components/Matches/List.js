@@ -4,10 +4,8 @@ import { Link } from 'react-router-dom';
 import { LogIn as LogInIcon } from 'react-feather';
 
 import Match from './Match';
-
-import apiClient from '../../services/api';
-
-import { useAuthenticationStateContext } from './../../context/AuthenticationIndex';
+import apiService from '../../services/api';
+import { useAuthenticationStateContext, useAuthenticationDispatchContext } from './../../context/AuthenticationIndex';
 
 const ListMatches = () => {
     const { user } = useAuthenticationStateContext();
@@ -16,12 +14,13 @@ const ListMatches = () => {
     useEffect( () => {
         const fetchCateredMatches = async () => {
             try {
-                let response = await apiClient.get(
+                let response = await apiService.get(
                     user 
-                        ? "/api/games/subscription/matches" 
-                        : 'api/matches'
+                        ? '/api/games/subscription/matches' 
+                        : '/api/matches'
                 );
                 if (response && response.status == 200) {
+                    console.log(response.data.data);
                     setMatches(response.data.data);
                 }
             } catch (err) {

@@ -1,17 +1,17 @@
-import apiClient from "./../services/api";
+import apiService from "./../services/api";
 
 export const login = async(dispatch, payload) => {
     dispatch({ type: 'LOGIN' });
     try {
-        await apiClient.get('/sanctum/csrf-cookie');
+        await apiService.get('/sanctum/csrf-cookie');
 
-        const loginResponse = await apiClient.post('/login', {
+        const loginResponse = await apiService.post('/login', {
             email: payload.email,
             password: payload.password,
         });
 
         if (loginResponse && loginResponse.status === 204) {
-            const authenticatedUser = await apiClient.get('/api/user');
+            const authenticatedUser = await apiService.get('/api/user');
             if (authenticatedUser) {
                 dispatch({
                     type: "LOGIN_SUCCESS",
@@ -44,7 +44,7 @@ export const login = async(dispatch, payload) => {
 
 export const logout = async (dispatch) => {
     try {
-        const response = await apiClient.post('/api/logout');
+        const response = await apiService.post('/api/logout');
         if (response.status === 204) {
             dispatch({ type: "LOGOUT" });
             localStorage.removeItem("currentUser");
