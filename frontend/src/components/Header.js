@@ -18,8 +18,8 @@ const Header = () => {
     user = (user && user !== null) ? user : null;
     const history = useHistory();
 
-    const handleLogout = () => {
-        logout(dispatch);
+    const handleLogout = async () => {
+        await logout(dispatch);
         history.replace("/");
     }
 

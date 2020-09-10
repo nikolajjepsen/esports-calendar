@@ -1,3 +1,11 @@
+.unauthenticated-container {
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+    .btn.has-icon {
+        margin: 4px auto;
+    }
+}
 .match-container {
     margin-bottom: 0.2rem;
     background-color: #1C202B;
@@ -6,6 +14,11 @@
     flex-direction: row;
     align-items: center;
     color: #F7FFF7;
+    &.empty-match {
+        background-color: #1C202B;
+        opacity: .4;
+        margin-top: 7px;
+    }
     .tournament-details {
         display: flex;
         flex-direction: row;

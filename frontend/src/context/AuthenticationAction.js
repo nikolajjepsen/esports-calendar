@@ -44,7 +44,7 @@ export const login = async(dispatch, payload) => {
 
 export const logout = async (dispatch) => {
     try {
-        const response = await apiClient.post('logout');
+        const response = await apiClient.post('/api/logout');
         if (response.status === 204) {
             dispatch({ type: "LOGOUT" });
             localStorage.removeItem("currentUser");

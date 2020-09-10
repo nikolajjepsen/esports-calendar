@@ -4,11 +4,10 @@ import moment from "moment";
 
 import './Match.scss';
 
-const Match = (props) => {
-    const { home, away, tournament, starts_at } = props.matchData;
-    const momentStartsAt = moment(starts_at);
-
+const Match = ({ teamOne, teamTwo, game, startsAt, id, className}) => {
+    
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
+    const momentStartsAt = moment(startsAt);
 
     useEffect(() => {
         let currentTimeInterval;
@@ -26,38 +25,44 @@ const Match = (props) => {
     // effect with current time as dependency, if any match has starts_at > current time, re-fetch the matches.
 
     return (
-        <Row className="match-container">
-            <Col sm={6} lg={4}>
-                <div className="tournament-details">
-                    <div className="game"><img src="https://luckbox.com/e3c8311098b00ce85583f2320ea7d425.png" /></div>
-                    <div className="tournament">
-                        <span className="tournament-name">{tournament}</span>
-                        <span className="tournament-format">Swiss BO3</span>
+        <Row className={`match-container ${className ? className : ''}`}>
+            <Col sm={6} lg={3}>
+                { game && (
+                    <div className="tournament-details">
+                        <div className="game"><img src="https://luckbox.com/e3c8311098b00ce85583f2320ea7d425.png" alt={game.name} /></div>
+                        <div className="tournament">
+                            <span className="tournament-name">Tournaments Name</span>
+                            <span className="tournament-format">Tournament Format</span>
+                        </div>
                     </div>
-                </div>
+                )}
             </Col>
-            <Col sm={12} lg={4}>
+            <Col sm={12} lg={6}>
                 <div className="match-details">
-                    <div className="team-wrapper" title={home}>
-                        <span className="team-name">{home}</span>
+                    <div className="team-wrapper" title={teamOne.name}>
+                        <span className="team-name">{teamOne.name}</span>
                     </div>
                     <div className="middle-section">
                         <span className="middle-content">vs</span>
                     </div>
-                    <div className="team-wrapper" title={away}>
-                        <span className="team-name">{away}</span>
+                    <div className="team-wrapper" title={teamTwo.name}>
+                        <span className="team-name">{teamTwo.name}</span>
                     </div>
                 </div>
             </Col>
-            <Col sm={6} lg={4}>
-                <div className="schedule-details">
-                    <span className="starts_in" title={starts_at}>
-                        {momentStartsAt.from(currentDateTime)}
-                    </span>
-                    <span className="starts_at">
-                        {momentStartsAt.format("HH:mm, Do MMM")}
-                    </span>
-                </div>
+            <Col sm={6} lg={3}>
+                {
+                    startsAt && (
+                        <div className="schedule-details">
+                            <span className="starts_in" title={startsAt}>
+                                {momentStartsAt.from(currentDateTime)}
+                            </span>
+                            <span className="starts_at">
+                                {momentStartsAt.format("HH:mm, Do MMM")}
+                            </span>
+                        </div>
+                    )
+                }
             </Col>
         </Row>
     );
