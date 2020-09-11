@@ -5,7 +5,7 @@ import { LogIn as LogInIcon } from 'react-feather';
 
 import Match from './Match';
 import apiService from '../../services/api';
-import { useAuthenticationStateContext, useAuthenticationDispatchContext } from './../../context/AuthenticationIndex';
+import { useAuthenticationStateContext } from './../../context/AuthenticationIndex';
 
 const ListMatches = () => {
     const { user } = useAuthenticationStateContext();
@@ -20,7 +20,6 @@ const ListMatches = () => {
                         : '/api/matches'
                 );
                 if (response && response.status == 200) {
-                    console.log(response.data.data);
                     setMatches(response.data.data);
                 }
             } catch (err) {
