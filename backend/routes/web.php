@@ -22,3 +22,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/games', 'GameController@index')->name('games');
 Route::get('/matches/{id?}', 'MatchController@index')->name('matches');
+
+Route::get('/csgo/matches/{tense}', 'FetchMatchController@getUpcomingMatches');
